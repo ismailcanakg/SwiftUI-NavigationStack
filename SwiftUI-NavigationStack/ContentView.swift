@@ -7,6 +7,14 @@
 
 import SwiftUI
 
+
+// MARK: ÖZET
+/* NavigationDestination: Belirli bir duruma veya değere bağlı olarak hedef görünümler tanımlar.
+ 
+NavigationStack(path:): Bir navigasyon yığını oluşturur ve belirli bir yolu takip ederek görünümler arasında geçiş yapmanızı sağlar.
+ 
+NavigationLink: İki görünüm arasında geçiş yapmayı sağlar.
+*/
     struct ContentView: View {
         
         var platforms: [Platform] = [.init(name: "Xbox", imageName: "xbox.logo", color: .green),
@@ -22,10 +30,13 @@ import SwiftUI
         @State private var path = NavigationPath()
         
         var body: some View {
+            
+            // NavigationStack(path:), SwiftUI'de bir navigasyon yığını oluşturmak için kullanılır. Bu, belirli bir yolu (path) takip ederek görünümler arasında geçiş yapmanızı sağlar. NavigationStack ile bir dizi (array) veya başka bir veri yapısını takip ederek navigasyon oluşturabilirsiniz.
             NavigationStack(path: $path) {
                 List{
                     Section("Platforms") {
                         ForEach(platforms, id: \.name) { platform in
+                            //NavigationLink, SwiftUI'de iki görünüm arasında geçiş yapmak için kullanılan bir yapı taşıdır. Bir düğme veya başka bir etkileşim öğesi olarak görünür ve tıklanması veya seçilmesi durumunda belirli bir hedefe geçiş yapar.
                             NavigationLink(value: platform) {
                                 Label(platform.name, systemImage: platform.imageName)
                                     .foregroundColor(platform.color)
@@ -60,6 +71,7 @@ import SwiftUI
                         }
                     }
                 }
+                // NavigationDestination, SwiftUI'de, belirli bir duruma veya değere bağlı olarak hedef (destination) görünümleri belirlemek için kullanılan bir modifiyerdir. Bu, uygulamanızda farklı durumlarda farklı hedeflere geçiş yapmanızı sağlar.
                 .navigationDestination(for: Game.self) { game in
                     VStack(spacing: 20) {
                         Text("\(game.name) - \(game.rating)")
